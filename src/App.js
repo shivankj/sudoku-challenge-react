@@ -12,12 +12,15 @@ class App extends Component {
     this.state = produce({}, () => ({
       sudoku: generateSudoku(),
     }));
+
+    window.sudoku = this.state.sudoku;
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
-    // this.setState({sudoku: {...this.state.sudoku, this.state.sudoku.rows[e.row].cols[e.col].value: e.value}});
     this.setState(
       produce((state) => {
+        console.log("AAA");
         state.sudoku.rows[e.row].cols[e.col].value = e.value;
         if (!state.sudoku.solvedTime) {
           const solved = checkSolution(state.sudoku);
@@ -28,6 +31,8 @@ class App extends Component {
         }
       })
     );
+
+    console.log(this.state);
   }
 
   solveSudoku = (e) => {
